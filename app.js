@@ -1,97 +1,87 @@
-////////////
-// TASK 5 //
-////////////
-//Creamos el array que va a guardar las notas
-let notasArray = [];
+// Creamos el array donde se van a guardar los productos.
+let arrayProductos = []
 
 //Revisamos si habia algo cada que carga la pagina
-const cargarPagina = localStorage.getItem("notas");
+const cargarPagina = localStorage.getItem("productos");
 if (cargarPagina) {
-    notasArray = JSON.parse(cargarPagina);
+    arrayProductos = JSON.parse(cargarPagina);
 }
 
-////////////
-// TASK 2 //
-////////////
-//Seleccionamos el input, boton y la lista desorganizada 
-//Seleccionamos primero el input
-const input = document.querySelector("#entrada");
+// Seleccionamos el input que contendra el nombre del producto.
+const productoNombre = document.querySelector("#agregarProductosNombre");
 
-//Seleccionamos ahora el boton
-const miBoton = document.getElementById("botonAgregar");
+// Seleccionamos el input que contendra el precio del producto.
+const productoPrecio = document.querySelector("#agregarProductosPrecio");
 
-//Ahora seleccionamos la lista desorganizada
-const listaDeNotas = document.querySelector("#listaNotas");
+// Seleccionamos el boton que agrega contenido a la lista.
+const botonAgregar = document.querySelector("#botonParaAgregar");
 
-//Y ahora los imprimimos para verificar que existen
-console.log(input);
-console.log(miBoton);
-console.log(listaDeNotas);
+// Seleccionamos la lista.
+const listaProductos = document.querySelector("#listaRenderizar");
 
+// Seleccionamos el boton que sincroniza la API.
+const botonSincronizarAPI = document.querySelector("#botonSincronizarAPI");
 
-////////////
-// TASK 3 //
-////////////
-//Agregamos una función para que cuando escuche el evento del click, agregue el contenido del input a la lista, para luego mostrarlo en pantalla
-function crearNota(nota){   
-    //Creamos el li y el boton
-    //Creamos el li
-    const miLi = document.createElement("li");
-    miLi.textContent = "Nota: ";
-    //Creamos el boton que elimina la nota
+// Creamos una función que cuando escuche los click, cree una lista con la información del usuario dentro.
+function crearProducto(producto) {
+    ////////////
+    // TASK 3 //
+    ////////////
+    // Creamos una lista que mostrata el producto.
+    const miLista = document.createElement("li");
+    miLista.textContent = "Producto: ";
+    
+    // Creamos el boton que elimina el producto.
     const botonEliminar = document.createElement("button");
-    botonEliminar.textContent = "Eliminar";
-
-    ////////////
-    // TASK 4 //
-    ////////////
-    //Se agrega la función del boton para eliminar la nota y se imprime
+    botonEliminar.textContent = "X";
+    // Creamos la función para que el boton elimine.
     botonEliminar.addEventListener("click", () => {
-        listaDeNotas.removeChild(miLi);
-        console.log("¡Su nota ha sido eliminada!");
-        notasArray = notasArray.filter(n => n !== nota);
-        localStorage.setItem("notas", JSON.stringify(notasArray));
+        listaProductos.removeChild(miLista);
+        console.log("Su producto ha sido eliminado con exito.");
+        arrayProductos = arrayProductos.filter(n => n !== producto);
+        localStorage.setItem("productos", JSON.stringify(arrayProductos));
     })
 
-    //Creamos el lugar donde va la nota
-    const lugarNota = document.createElement("span");
-    lugarNota.textContent = `${nota}`;
+    // Creamos un span donde se encontrara el producto.
+    const lugarProducto = document.createElement("span");
+    lugarProducto.textContent = `Nombre: ${producto.nombre} - Precio: ${producto.precio}`;
 
-    //Agregamos el boton al span
-    lugarNota.appendChild(botonEliminar);
+    // Agregamos el boton al span.
+    lugarProducto.appendChild(botonEliminar);
 
-    //Agregamos el boton dentro del li
-    miLi.appendChild(lugarNota);
+    // Agregamos el span a la lista.
+    miLista.appendChild(lugarProducto);
 
-    //Agregamos el li y el boton con appendChild
-    listaDeNotas.appendChild(miLi);
+    // Agregamos la lista a la lista desordenada.
+    listaProductos.appendChild(miLista);
 }
 
-//Recorremos el array para renderizar las notas al cargar la pagina
-for (const nota of notasArray) {
-    crearNota(nota);
+// Recorremos el array para renderizar los productos al cargar la pagina
+for (const item of arrayProductos) {
+    crearProducto(item);
 }
 
-miBoton.addEventListener("click", () => {
-    //Validamos que la nota no este vacia
-    const nota = input.value;
-    if (nota == "") {
-        alert("Por favor, introduzca una nota.");
-        return; 
+// Creamos una función que escuchara los click y renderizara la información en pantalla.
+botonAgregar.addEventListener("click", () => {
+    const nombre = productoNombre.value;
+    const precio = productoPrecio.value;
+    // Validamos que el usuario haya introducido información y que no se encuentren vacio.
+    if (nombre === "" || precio === "") {
+        alert("Por favor completa todos los campos");
+        return;
     }
+    // Creamos un objeto que almacenara el nombre y el precio.
+    const producto = {
+        nombre: nombre,
+        precio: precio
+    };
 
-    //Llamos a la función que habiamos creado con anterioridad
-    crearNota(nota)
+    // Llamamos a la función que habiamos creado antes.
+    crearProducto(producto)
 
-    //Agregamos la nota al array
-    notasArray.push(nota);
-
-    //Guardamos el array en el LocalStorage
-    localStorage.setItem("notas", JSON.stringify(notasArray));
+    // Agregamos el producto al array.
+    arrayProductos.push(producto)
+    
+    // Guardamos el array en el localStorage.
+    localStorage.setItem("productos", JSON.stringify(arrayProductos));
 })
-
-//Codigo del boton que elimina la nota
-function eliminarNota(item) {
-    const li = item.parentElement;
-    li.remove()
-}
