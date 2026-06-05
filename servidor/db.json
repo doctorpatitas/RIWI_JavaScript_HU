@@ -1,5 +1,15 @@
 {
-    "productos": [
-        { "id": 1, "nombre": "Laptop", "precio": 999 }
-    ]
+  "productos": [
+    {
+      "id": "1",
+      "nombre": "Laptop",
+      "precio": 999
+    },
+    {
+      "nombre": "as",
+      "precio": "as",
+      "id": "rsaHr7q2wOg"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

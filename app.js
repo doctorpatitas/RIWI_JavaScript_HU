@@ -1,3 +1,6 @@
+////////////
+// TASK 4 //
+////////////
 // Creamos el array donde se van a guardar los productos.
 let arrayProductos = []
 
@@ -22,7 +25,8 @@ const listaProductos = document.querySelector("#listaRenderizar");
 // Seleccionamos el boton que sincroniza la API.
 const botonSincronizarAPI = document.querySelector("#botonSincronizarAPI");
 
-// Creamos una función que cuando escuche los click, cree una lista con la información del usuario dentro.
+// Creamos una función que cuando escuche los click 
+// cree una lista con la información del usuario dentro.
 function crearProducto(producto) {
     ////////////
     // TASK 3 //
@@ -35,11 +39,12 @@ function crearProducto(producto) {
     const botonEliminar = document.createElement("button");
     botonEliminar.textContent = "X";
     // Creamos la función para que el boton elimine.
-    botonEliminar.addEventListener("click", () => {
+    botonEliminar.addEventListener("click", async () => {
         listaProductos.removeChild(miLista);
-        console.log("Su producto ha sido eliminado con exito.");
         arrayProductos = arrayProductos.filter(n => n !== producto);
         localStorage.setItem("productos", JSON.stringify(arrayProductos));
+        await eliminarProductoAPI(producto.id);
+        console.log("Su producto ha sido eliminado con exito.")
     })
 
     // Creamos un span donde se encontrara el producto.
@@ -62,7 +67,7 @@ for (const item of arrayProductos) {
 }
 
 // Creamos una función que escuchara los click y renderizara la información en pantalla.
-botonAgregar.addEventListener("click", () => {
+botonAgregar.addEventListener("click", async () => {
     const nombre = productoNombre.value;
     const precio = productoPrecio.value;
     // Validamos que el usuario haya introducido información y que no se encuentren vacio.
@@ -76,12 +81,23 @@ botonAgregar.addEventListener("click", () => {
         precio: precio
     };
 
+    // Enviamos el producto al servidor y guardamos la respuesta
+    // que contiene el id asignado automaticamente por json-server.
+    const productoGuardado = await crearProductoAPI(producto)
+    console.log(productoGuardado)
+
     // Llamamos a la función que habiamos creado antes.
-    crearProducto(producto)
+    crearProducto(productoGuardado)
 
     // Agregamos el producto al array.
-    arrayProductos.push(producto)
+    arrayProductos.push(productoGuardado)
     
     // Guardamos el array en el localStorage.
     localStorage.setItem("productos", JSON.stringify(arrayProductos));
+})
+
+// Agregamos la función el boton de la API.
+botonSincronizarAPI.addEventListener("click", async () => {
+    const productosAPI = await obtenerProductos();
+    console.log(productosAPI);
 })
