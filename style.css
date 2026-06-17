@@ -1,0 +1,42 @@
+* {
+    margin: 0 ;
+    padding: 0;
+    box-sizing: 0;
+}
+
+body {
+    background-color: beige;
+    font-family: "Bubblegum Sans", cursive;
+}
+
+.contenedorNombre {
+    padding: 10px;
+    font-size: 20px
+}
+
+.contenedorPrecio {
+    padding: 10px;
+    font-size: 20px
+}
+
+.contenedorBotonesLista {
+    padding: 10px;
+}
+
+.btnAgregar {
+    border-radius: 5px;
+    padding: 5px;
+    font-family: "Bubblegum Sans", cursive;
+    font-size: 20px
+}
+
+.contenedorAPI {
+    padding: 10px;
+}
+
+#botonSincronizarAPI {
+    border-radius: 5px;
+    padding: 5px;
+    font-family: "Bubblegum Sans", cursive;
+    font-size: 20px
+}

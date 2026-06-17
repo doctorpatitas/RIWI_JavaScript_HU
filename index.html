@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Rubik+Doodle+Shadow&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!------------------>
@@ -13,13 +17,27 @@
     <!-- luego el boton para crearla -->
     <!-- luego la lista que renderizara todo y por ultimo el boton para sincronizar la API.  -->
     <!-- Solicitamos la información del usuario con dos inputs. -->
-    <input type="text" id="agregarProductosNombre">
-    <input type="text" id="agregarProductosPrecio">
-    <button id="botonParaAgregar">Agregar</button>
-    <ul id="listaRenderizar">
-        
-    </ul>
-    <button id="botonSincronizarAPI">Sincronizar API</button>
+    <div class="contenedorNombre">
+        <p class="subtituloNombre">agrega el nombre del producto</p>
+        <input type="text" id="agregarProductosNombre">
+    </div>
+
+    <div class="contenedorPrecio">
+        <p class="subtituloPrecio">agrega el precio del producto</p>
+        <input type="text" id="agregarProductosPrecio">
+    </div>
+
+    <div class="contenedorBotonesLista">
+        <button id="botonParaAgregar" class="btnAgregar">Agregar</button>
+        <ul id="listaRenderizar">
+            
+        </ul>
+    </div>
+
+    <div class="contenedorAPI">
+        <button id="botonSincronizarAPI">Sincronizar API</button>
+    </div>
+
 
     <script src="api.js"></script>
     <script src="app.js"></script>
