@@ -67,7 +67,7 @@ for (const item of arrayProductos) {
 }
 
 // Creamos una función que escuchara los click y renderizara la información en pantalla.
-botonAgregar.addEventListener("click", async () => {
+botonAregar.addEventListener("click", async () => {
     const nombre = productoNombre.value;
     const precio = productoPrecio.value;
     // Validamos que el usuario haya introducido información y que no se encuentren vacio.
